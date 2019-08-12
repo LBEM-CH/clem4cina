@@ -11,7 +11,7 @@ Simple GUI tool based on tkinter to enable coordinate transformation between TEM
 In a shell terminal, type:
 
 ```bash
-$ ./clem4cina.py
+./clem4cina.py
 ```
 
 ## Interface
