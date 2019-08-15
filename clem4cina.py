@@ -1,5 +1,13 @@
-#!/usr/local/bin/python3
+# #!/usr/local/bin/python3
 
+# run on OSX:
+# xcode-select --install
+# brew install tcl-tk
+# brew uninstall python
+# brew install python --with-tcl-tk
+# pip install --upgrade pip
+# pip install matplotlib
+# pip install numpy
 
 import tkinter
 from tkinter import ttk

@@ -1,0 +1,20 @@
+#!/bin/csh
+####
+#
+#
+set PYPROG = `which python3`
+if ( "${PYPROG}x" == "python3: Command not found.x" ) then
+  set PYPROG = `which python`
+endif
+# echo "Python is at "${PYPROG}
+if ( -e ${PYPROG} ) then
+  echo " "
+  echo "Running ${PYPROG} ./clem4cina.py"
+  echo " "
+  ${PYPROG} ./clem4cina.py
+else
+  echo "Python interpreter not found: ${PYPROG}"
+endif
+
+#
+#
