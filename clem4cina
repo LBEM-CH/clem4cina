@@ -3,17 +3,32 @@
 #
 #
 set PYPROG = `which python3`
+*
+set curdir = $PWD
+#
+if ( -e ${curdir}/clem4cina.py ) then
+  set clemscript = ${curdir}/clem4cina.py
+else
+  if ( -e ~/Projects/clem4cina/clem4cina.py ) then
+    set clemscript = ~/Projects/clem4cina/clem4cina.py
+  else
+    echo "clem4cina.py script not found."
+    exit -1
+  endif
+endif
+#
 if ( "${PYPROG}x" == "python3: Command not found.x" ) then
   set PYPROG = `which python`
 endif
 # echo "Python is at "${PYPROG}
 if ( -e ${PYPROG} ) then
   echo " "
-  echo "Running ${PYPROG} ./clem4cina.py"
+  echo "Running ${PYPROG} ${clemscript}"
   echo " "
-  ${PYPROG} ./clem4cina.py
+  ${PYPROG} ${clemscript}
 else
   echo "Python interpreter not found: ${PYPROG}"
+  exit -1
 endif
 
 #
