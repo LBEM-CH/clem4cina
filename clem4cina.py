@@ -30,6 +30,8 @@ class Adder(ttk.Frame):
         self.counter1 = 1
         self.pos = []
         self.pos1 = []
+        self.screen_width = root.winfo_screenwidth()
+        self.screen_height = root.winfo_screenheight()
         
 
     def on_quit(self):
@@ -246,21 +248,16 @@ class Adder(ttk.Frame):
         button2 = ttk.Button(preview, text = "5 ROIs", command = self.choose5ROI)
         button2.pack(side='top', anchor = 's')
 
-        button3 = ttk.Button(preview, text = "Zoom +", command = self.zoomplus)
-        button3.pack(side='top', anchor = 'z')
-
         #preview.bind("<Button-1>", self.get_coord)
 
-        canvas_width = 1000
-        canvas_height = 900
-        # preview.geometry('2000x1800')
-        canvas = Canvas(preview,cursor="plus", width=canvas_width,height=canvas_height)
+        preview.geometry("{}x{}".format(self.screen_width, self.screen_height))
+        width, height = int(self.screen_width*0.8), int(self.screen_height*0.8)
+        canvas = Canvas(preview,cursor="plus", width=width, height=height)
         canvas.pack()
-        canvas.config(scrollregion=canvas.bbox(ALL))
 
         file_name=askopenfilename(filetypes=[('TIF FILES', '.tif')])
         pilImage = Image.open(file_name)  
-        pilImage.thumbnail((900,900), Image.ANTIALIAS)
+        pilImage = pilImage.resize((width, height), Image.ANTIALIAS)
 
         image = ImageTk.PhotoImage(pilImage)
         imagesprite = canvas.create_image(0,0,image=image, anchor="nw")
@@ -314,21 +311,6 @@ class Adder(ttk.Frame):
                                             "6) click to press enter")
         canvas.bind("<Button-1>", self.imgClick5p)
         canvas.delete("numbers_roi")
-
-
-    def zoomplus(self):
-        self.scale *= 1.5
-        self.redraw(event.x, event.y)
-
-    def redraw(self, x=0, y=0):
-        if self.img_id:
-            self.canvas.delete(self.img_id)
-        iw, ih = self.orig_img.size
-        size = int(iw * self.scale), int(ih * self.scale)
-        self.img = ImageTk.PhotoImage(self.orig_img.resize(size))
-        self.img_id = self.canvas.create_image(x, y, image=self.img)
-        # tell the canvas to scale up/down the vector objects as well
-        self.canvas.scale(ALL, x, y, self.scale, self.scale)
 
 
     def imgClick5p(self, event):
