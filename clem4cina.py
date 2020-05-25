@@ -246,10 +246,15 @@ class Adder(ttk.Frame):
         button2 = ttk.Button(preview, text = "5 ROIs", command = self.choose5ROI)
         button2.pack(side='top', anchor = 's')
 
+        button3 = ttk.Button(preview, text = "Zoom +", command = self.zoomplus)
+        button3.pack(side='top', anchor = 'z')
+
         #preview.bind("<Button-1>", self.get_coord)
 
-        preview.geometry('1000x900')
-        canvas = Canvas(preview,cursor="plus", width=900,height=900)
+        canvas_width = 1000
+        canvas_height = 900
+        # preview.geometry('2000x1800')
+        canvas = Canvas(preview,cursor="plus", width=canvas_width,height=canvas_height)
         canvas.pack()
         canvas.config(scrollregion=canvas.bbox(ALL))
 
@@ -300,7 +305,6 @@ class Adder(ttk.Frame):
 
        
     def choose5ROI(self):
-
         tkinter.messagebox.showinfo("Instructions", "Click ROI points: \n" 
                                             "1) LM1 \n"
                                             "2) LM2 \n"
@@ -308,9 +312,23 @@ class Adder(ttk.Frame):
                                             "4) LM4 \n"
                                             "5) LM5 \n"
                                             "6) click to press enter")
-
         canvas.bind("<Button-1>", self.imgClick5p)
         canvas.delete("numbers_roi")
+
+
+    def zoomplus(self):
+        self.scale *= 1.5
+        self.redraw(event.x, event.y)
+
+    def redraw(self, x=0, y=0):
+        if self.img_id:
+            self.canvas.delete(self.img_id)
+        iw, ih = self.orig_img.size
+        size = int(iw * self.scale), int(ih * self.scale)
+        self.img = ImageTk.PhotoImage(self.orig_img.resize(size))
+        self.img_id = self.canvas.create_image(x, y, image=self.img)
+        # tell the canvas to scale up/down the vector objects as well
+        self.canvas.scale(ALL, x, y, self.scale, self.scale)
 
 
     def imgClick5p(self, event):
