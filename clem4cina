@@ -23,9 +23,13 @@ endif
 # echo "Python is at "${PYPROG}
 if ( -e ${PYPROG} ) then
   echo " "
-  echo "Running ${PYPROG} ${clemscript}"
+  # echo "Running ${PYPROG} ${clemscript}"
+  echo "Running" zsh -c ${PYPROG} ${clemscript}
+  echo zsh -c \'${PYPROG} ${clemscript}\' > runcommand.TMP1239877
+  chmod +x runcommand.TMP1239877
   echo " "
-  ${PYPROG} ${clemscript}
+  source runcommand.TMP1239877
+  \rm runcommand.TMP1239877
 else
   echo "Python interpreter not found: ${PYPROG}"
   exit -1
