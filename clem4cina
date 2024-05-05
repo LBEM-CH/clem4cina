@@ -12,8 +12,12 @@ else
   if ( -e ~/Projects/clem4cina/clem4cina.py ) then
     set clemscript = ~/Projects/clem4cina/clem4cina.py
   else
-    echo "clem4cina.py script not found."
-    exit -1
+    if ( -e ~/Documents/Projects/Softwares/clem4cina/clem4cina.py ) then
+      set clemscript = ~/Documents/Projects/Softwares/clem4cina/clem4cina.py
+    else
+      echo "clem4cina.py script not found."
+      exit -1
+    endif
   endif
 endif
 #
