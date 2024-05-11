@@ -4,16 +4,26 @@ After the transformation matrix has been created, one can click on points of int
 
 ## System requirements
 
-* This software has been tested on a Mac with Apple M1 Max processor, running OSX Sonoma 14.4.1. 
+* This software has been tested on a Mac with Apple M1 Max processor, running OSX Sonoma 14.4.1.
+* Python3 is required, which is included in OSX.
 
 ## Installation guide
 
-* Download this repository from Github.
+* Install from Github:
+```bash
+git clone https://github.com/LBEM-CH/clem4cina
+cd clem4cina
+```
 
 In addition, install:
-* Python
 * NumPy
 * tkinter
+
+This can be done for example with:
+```bash
+pip3 install numpy
+pip3 install tkinter
+```
 
 Typical install time on a desktop computer: 10 minutes.
 
